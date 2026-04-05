@@ -76,18 +76,44 @@ document.addEventListener('DOMContentLoaded', () => {
       
       newFiles.forEach(file => {
           const url = URL.createObjectURL(file);
-          photos.push({ file, url });
-          addPreviewImage(url);
+          const photoObj = { file, url };
+          photos.push(photoObj);
+          addPreviewImage(photoObj);
       });
       
       updateUI();
   }
 
-  function addPreviewImage(url) {
+  function addPreviewImage(photoObj) {
+      const container = document.createElement('div');
+      container.className = 'preview-container';
+      
       const img = document.createElement('img');
-      img.src = url;
+      img.src = photoObj.url;
       img.classList.add('preview-item');
-      galleryPreview.appendChild(img);
+      
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'remove-btn';
+      removeBtn.innerHTML = '&times;';
+      removeBtn.title = 'Remove photo';
+      
+      removeBtn.addEventListener('click', () => {
+          const index = photos.indexOf(photoObj);
+          if (index > -1) {
+              URL.revokeObjectURL(photoObj.url);
+              photos.splice(index, 1);
+          }
+          container.remove();
+          updateUI();
+          
+          if (photos.length === 0) {
+              fileInput.value = '';
+          }
+      });
+      
+      container.appendChild(img);
+      container.appendChild(removeBtn);
+      galleryPreview.appendChild(container);
   }
 
   function updateUI() {

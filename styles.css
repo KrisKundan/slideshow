@@ -47,6 +47,7 @@ body {
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
 }
@@ -199,6 +200,40 @@ body {
 .gallery-preview::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 4px;
+}
+
+.preview-container {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: transform 0.2s, background-color 0.2s;
+  z-index: 10;
+}
+
+.remove-btn:hover {
+  transform: scale(1.1);
+  background-color: #dc2626;
 }
 
 .preview-item {
